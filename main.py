@@ -8,15 +8,15 @@
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    total = input("Total number of points: \n")
+    total = eval(input("Total number of points: \n"))
     exp = []
     achieved = 0
 
     points = 0
     while points != "":
-        points = input("Exercise points: \n")
+        points = eval(input("Exercise points: \n"))
 
-        if not points.isnumeric() and points != "":
+        if not(isinstance(points,(float,int))) and points != "":
             print("Invalid input")
         elif points != "":
             if achieved + int(points) > int(total):
