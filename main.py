@@ -1,53 +1,48 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    total = input("Total number of points: \n")
+    inp = input("Total number of points: \n")
+    if inp != "" and isinstance(eval(inp),(int,float)):
+        total = eval(inp)
+    else:
+        print("Invalid input!")
+        exit()
     exp = []
     achieved = 0
 
     points = 0
-    while points != "":
-        points = input("Exercise points: \n")
+    while True:
+        points = (input("Exercise points: \n"))
 
-        if not points.isnumeric() and points != "":
-            print("Invalid input")
-        elif points != "":
-            if achieved + int(points) > int(total):
-                print("You can't achieve more than " + str(total) + " points")
-                choice = input("Do you want to restart? (y/n) ")
-                if choice == "y":
-                    achieved = 0
-                    exp = []
-                    continue
-                elif choice == "n":
-                    break
+        if points == "":
+            break
+        else:
+            points = eval(points)
+            if (not isinstance(points, (float, int))) or (points < 0):
+                print("Invalid input!")
+                continue
+            exp.append(points)
+            achieved += points
+
+            if achieved > total:
+                print("Total number of points exceeded!")
+                ans = input("Do you want to reenter the last value? \n")
+                if ans.lower()[0] == "y":
+                    achieved -= points
+                    exp.pop(-1)
                 else:
-                    print("Invalid input")
-                    break
-            else:
-                exp.append(int(points))
-                achieved += int(points)
+                    exit()
 
     grade = achieved / int(total) * 5 + 1
     percent = achieved / int(total) * 100
 
-    print("-----"* len(exp) + "----")
+    out = "| "
     for i in range(len(exp)):
-        print(str(exp[i]) + " | ", end="")
-    print()
-    print("-----"* len(exp) + "----")
+        out += (str(exp[i]) + " | ")
+    print("-" * len(out))
+    print(out)
+    print("-" * len(out))
     print("Total points: " + str(total) + " | ", end="")
     print("Achieved points: " + str(achieved))
     print("Grade: " + str(round(grade, 2)))
     print("Percent: " + str(round(percent, 2)) + "%")
     print()
 
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
